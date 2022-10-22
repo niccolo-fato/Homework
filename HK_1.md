@@ -51,7 +51,7 @@ def ex1(int_seq, subtotal):
                 elif amount == subtotal: subsets += 1 + count_zero
             count_zero = 0
     else:
-        return len(seq) - subtotal + 1
+        return lenght - subtotal + 1
     return subsets
 
 
