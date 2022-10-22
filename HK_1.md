@@ -38,16 +38,16 @@ Il mio codice:
 def ex1(int_seq, subtotal):
     subsets,count_zero = 0, 0
     seq = [int(number) for number in int_seq.split(',')]
-    if seq.count(seq[0]) != len(seq):
-        for x in range(len(seq)):
+    length = len(seq)
+    if seq.count(seq[0]) != length:
+        for x in range(length):
             amount = 0
             if seq[x] == 0:
                 count_zero += 1
                 continue
-            for y in range(x, len(seq)):
+            for y in range(x, length):
                 amount += seq[y]
-                if amount > subtotal: 
-                    break
+                if amount > subtotal: break
                 elif amount == subtotal: subsets += 1 + count_zero
             count_zero = 0
     else:
