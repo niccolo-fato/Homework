@@ -1,5 +1,5 @@
 <p align="center">
-  <h2 align="center">Primo Homework</h2>
+  <h2 align="center">Primo Homework(opzionale)</h2>
   <p align="center">Il mio primo homework!</p>
 </p>
 
@@ -36,22 +36,24 @@ ATTENZIONE: quando caricate il file assicuratevi che sia nella codifica UTF8
 Il mio codice:
 ```python
 def ex1(int_seq, subtotal):
-    subsets,count_zero = 0, 0
+    subsets, count_zero = 0, 0
     seq = [int(number) for number in int_seq.split(',')]
     length = len(seq)
     if seq.count(seq[0]) != length:
         for x in range(length):
+            y = x
             amount = 0
-            if seq[x] == 0:
+            if seq[y] == 0:
                 count_zero += 1
                 continue
-            for y in range(x, length):
+            while y < length:
                 amount += seq[y]
                 if amount > subtotal: break
                 elif amount == subtotal: subsets += 1 + count_zero
+                y += 1
             count_zero = 0
     else:
-        return lenght - subtotal + 1
+        return length - subtotal + 1
     return subsets
 
 
