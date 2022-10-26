@@ -43,18 +43,10 @@ def decode_XKCD_tuple(xkcd_values : tuple[str, ...], k : int) -> list[int]:
     Returns
     list[int]                   i k massimi valori ottenuti in ordine decrescente
     '''
-    list1 = []
-    result = []
-    tmp = 0
-    for x in xkcd_values:
-      convert = decode_value(x)
-      list1.append(convert)
-    list1.sort()
-    list1.reverse()
-    return list1[:(k-tmp)]
+    list1 = [decode_value(x) for x in xkcd_values ]
+    list1.sort(reverse=True)
+    return list1[:(k)]
     
-
-
 def decode_value(xkcd : str ) -> int:
     '''
     Decodifica un valore nel formato XKCD e torna l'intero corrispondente.
@@ -74,10 +66,8 @@ def decode_value(xkcd : str ) -> int:
         if x == length - 1:
             amount += xkcd1[x]
             break
-        if xkcd1[x] >= xkcd1[x+1]:
-            amount += xkcd1[x]
-        else:
-            tmp += xkcd1[x]
+        if xkcd1[x] >= xkcd1[x+1]:amount += xkcd1[x]
+        else: tmp += xkcd1[x]
     return amount - tmp
 
 def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
@@ -94,20 +84,18 @@ def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
     '''
     num = ['1', '2', '3', '5', '10', '20', '40', '50', '90', '100', '400', '500', '900', '1000']
     length = len(xkcd)
-    list = []
+    list1 = []
     tmp = ''
     for x in range(length):
-        tmp = tmp + xkcd[x]
+        tmp = ''.join([tmp,xkcd[x]])
         if x == len(xkcd) - 1:
-            list.append(int(tmp))
+            list1.append(int(tmp))
             break
         if xkcd[x + 1] != '0':
-            for y in num:
-                if tmp == y:
-                    list.append(int(tmp))
-                    tmp = ''
-    return list
-
+            if tmp in num:
+                list1.append(int(tmp))
+                tmp = ''
+    return list1
 
 def list_of_weights_to_number(weigths : list[int] ) -> int:
     '''
@@ -125,15 +113,13 @@ def list_of_weights_to_number(weigths : list[int] ) -> int:
     tmp = 0
     length = len(weigths)
     for x in range(length):
-        if x == length - 1:
+        if x == length - 1: 
             amount += weigths[x]
             break
-        if weigths[x] >= weigths[x+1]:
-            amount += weigths[x]
-        else:
-            tmp += weigths[x]
+        if weigths[x] >= weigths[x+1]: amount += weigths[x]
+        else: tmp += weigths[x]
     return amount - tmp
-
+    
 
 if __name__ == '__main__':
     # inserisci qui i tuoi test
