@@ -60,3 +60,5 @@ def ex1(int_seq, subtotal):
 if __name__ == '__main__':
     print(ex1('3,0,4,0,3,1,0,1,0,1,0,0,5,0,4,2', 9))
 ```
+
+
