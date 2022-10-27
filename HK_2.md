@@ -43,8 +43,9 @@ def decode_XKCD_tuple(xkcd_values : tuple[str, ...], k : int) -> list[int]:
     Returns
     list[int]                   i k massimi valori ottenuti in ordine decrescente
     '''
-    list1 = [decode_value(x) for x in xkcd_values ]
-    list1.sort(reverse=True)
+    list1 = [decode_value(x)  for x in xkcd_values]
+    list1.sort()
+    list1.reverse()
     return list1[:(k)]
     
 def decode_value(xkcd : str ) -> int:
@@ -60,15 +61,14 @@ def decode_value(xkcd : str ) -> int:
     '''
     xkcd1 = xkcd_to_list_of_weights(xkcd)
     amount = 0
-    tmp = 0
+    subtract = 0
     length = len(xkcd1)
     for x in range(length):
-        if x == length - 1:
+        if x == length - 1: 
             amount += xkcd1[x]
-            break
-        if xkcd1[x] >= xkcd1[x+1]:amount += xkcd1[x]
-        else: tmp += xkcd1[x]
-    return amount - tmp
+            return amount - subtract
+        if xkcd1[x] >= xkcd1[x+1]: amount += xkcd1[x]
+        else: subtract += xkcd1[x]
 
 def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
     '''
@@ -82,21 +82,17 @@ def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
 
     Esempio: '10010010010100511' -> [100, 100, 100, 10, 100, 5, 1, 1,]
     '''
-    num = ['1', '2', '3', '5', '10', '20', '40', '50', '90', '100', '400', '500', '900', '1000']
     length = len(xkcd)
     list1 = []
     tmp = ''
     for x in range(length):
         tmp = ''.join([tmp,xkcd[x]])
-        if x == len(xkcd) - 1:
+        if x == length - 1 :
             list1.append(int(tmp))
-            break
-        if xkcd[x + 1] != '0':
-            if tmp in num:
-                list1.append(int(tmp))
-                tmp = ''
-    return list1
-
+            return list1
+        elif xkcd[x + 1] != '0':
+            list1.append(int(tmp))
+            tmp = ''
 def list_of_weights_to_number(weigths : list[int] ) -> int:
     '''
     Trasforma una lista di 'pesi' nel corrispondente valore arabo
@@ -110,15 +106,14 @@ def list_of_weights_to_number(weigths : list[int] ) -> int:
     Esempio: [100, 100, 100, 10, 100, 5, 1, 1,] -> 397
     '''
     amount = 0
-    tmp = 0
+    subtract = 0
     length = len(weigths)
     for x in range(length):
         if x == length - 1: 
             amount += weigths[x]
-            break
+            return amount - subtract
         if weigths[x] >= weigths[x+1]: amount += weigths[x]
-        else: tmp += weigths[x]
-    return amount - tmp
+        else: subtract += weigths[x]
     
 
 if __name__ == '__main__':
