@@ -44,8 +44,7 @@ def decode_XKCD_tuple(xkcd_values : tuple[str, ...], k : int) -> list[int]:
     list[int]                   i k massimi valori ottenuti in ordine decrescente
     '''
     list1 = [decode_value(x)  for x in xkcd_values]
-    list1.sort()
-    list1.reverse()
+    list1.sort(reverse = True)
     return list1[:(k)]
     
 def decode_value(xkcd : str ) -> int:
@@ -60,15 +59,7 @@ def decode_value(xkcd : str ) -> int:
     Esempio: '10010010010100511' -> 397
     '''
     xkcd1 = xkcd_to_list_of_weights(xkcd)
-    amount = 0
-    subtract = 0
-    length = len(xkcd1)
-    for x in range(length):
-        if x == length - 1: 
-            amount += xkcd1[x]
-            return amount - subtract
-        if xkcd1[x] >= xkcd1[x+1]: amount += xkcd1[x]
-        else: subtract += xkcd1[x]
+    return list_of_weights_to_number(xkcd1)
 
 def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
     '''
@@ -87,12 +78,10 @@ def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
     tmp = ''
     for x in range(length):
         tmp = ''.join([tmp,xkcd[x]])
-        if x == length - 1 :
-            list1.append(int(tmp))
-            return list1
-        elif xkcd[x + 1] != '0':
+        if x == length - 1 or xkcd[x + 1] != '0' :
             list1.append(int(tmp))
             tmp = ''
+    return list1
 def list_of_weights_to_number(weigths : list[int] ) -> int:
     '''
     Trasforma una lista di 'pesi' nel corrispondente valore arabo
