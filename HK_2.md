@@ -43,7 +43,7 @@ def decode_XKCD_tuple(xkcd_values : tuple[str, ...], k : int) -> list[int]:
     Returns
     list[int]                   i k massimi valori ottenuti in ordine decrescente
     '''
-    list1 = [decode_value(x)  for x in xkcd_values]
+    list1 = list(map(decode_value, xkcd_values))
     list1.sort(reverse = True)
     return list1[:(k)]
     
