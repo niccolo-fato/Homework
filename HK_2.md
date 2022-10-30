@@ -73,10 +73,11 @@ def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
 
     Esempio: '10010010010100511' -> [100, 100, 100, 10, 100, 5, 1, 1,]
     '''
-    length, list1, tmp = len(xkcd), [], ''
+    newstring = ''.join([i for i in xkcd if i.isdigit()])
+    length, list1, tmp, = len(newstring), [], ''
     for x in range(length):
-        tmp = ''.join([tmp,xkcd[x]])
-        if x == length - 1 or xkcd[x + 1] != '0' :
+        tmp = ''.join([tmp,newstring[x]])
+        if x == length - 1 or newstring[x + 1] != '0' :
             list1.append(int(tmp))
             tmp = ''
     return list1
