@@ -92,11 +92,9 @@ def list_of_weights_to_number(weigths : list[int] ) -> int:
     
     Esempio: [100, 100, 100, 10, 100, 5, 1, 1,] -> 397
     '''
-    amount, subtract, length = 0, 0, len(weigths)
-    for x in range(length):
-        if x == length - 1 or weigths[x] >= weigths[x+1]: amount += weigths[x]
-        else: subtract += weigths[x]
-    return amount - subtract
+    length = len(weigths)
+    amount = [weigths[x] if x == length - 1 or weigths[x] >= weigths[x+1] else weigths[x]*(-1) for x in range(length)]
+    return sum(amount)
     
 
 if __name__ == '__main__':
