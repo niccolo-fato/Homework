@@ -73,9 +73,7 @@ def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
 
     Esempio: '10010010010100511' -> [100, 100, 100, 10, 100, 5, 1, 1,]
     '''
-    length = len(xkcd)
-    list1 = []
-    tmp = ''
+    length, list1, tmp = len(xkcd), [], ''
     for x in range(length):
         tmp = ''.join([tmp,xkcd[x]])
         if x == length - 1 or xkcd[x + 1] != '0' :
@@ -94,12 +92,9 @@ def list_of_weights_to_number(weigths : list[int] ) -> int:
     
     Esempio: [100, 100, 100, 10, 100, 5, 1, 1,] -> 397
     '''
-    amount = 0
-    subtract = 0
-    length = len(weigths)
+    amount, subtract, length = 0, 0, len(weigths)
     for x in range(length):
-        if x == length - 1 or weigths[x] >= weigths[x+1]: 
-            amount += weigths[x]
+        if x == length - 1 or weigths[x] >= weigths[x+1]: amount += weigths[x]
         else: subtract += weigths[x]
     return amount - subtract
     
