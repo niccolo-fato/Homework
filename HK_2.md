@@ -58,8 +58,7 @@ def decode_value(xkcd : str ) -> int:
     
     Esempio: '10010010010100511' -> 397
     '''
-    xkcd1 = xkcd_to_list_of_weights(xkcd)
-    return list_of_weights_to_number(xkcd1)
+    return list_of_weights_to_number(xkcd_to_list_of_weights(xkcd))
 
 def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
     '''
