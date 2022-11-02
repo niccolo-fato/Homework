@@ -58,7 +58,8 @@ def decode_value(xkcd : str ) -> int:
     
     Esempio: '10010010010100511' -> 397
     '''
-    return list_of_weights_to_number(xkcd_to_list_of_weights(xkcd))
+    num = xkcd_to_list_of_weights(xkcd)
+    return list_of_weights_to_number(num) if num.count(num[0]) != len(num) else num[0]*len(num)
 
 def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
     '''
@@ -93,8 +94,7 @@ def list_of_weights_to_number(weigths : list[int] ) -> int:
     Esempio: [100, 100, 100, 10, 100, 5, 1, 1,] -> 397
     '''
     length = len(weigths)
-    amount = [weigths[x] if x == length - 1 or weigths[x] >= weigths[x+1] else weigths[x]*(-1) for x in range(length)]
-    return sum(amount)
+    return sum([weigths[x] if x == length - 1 or weigths[x] >= weigths[x+1] else weigths[x]*(-1) for x in range(length)])
     
 
 if __name__ == '__main__':
