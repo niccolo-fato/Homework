@@ -59,7 +59,8 @@ def decode_value(xkcd : str ) -> int:
     Esempio: '10010010010100511' -> 397
     '''
     num = xkcd_to_list_of_weights(xkcd)
-    return list_of_weights_to_number(num) if num.count(num[0]) != len(num) else num[0]*len(num)
+    length = len(num)
+    return list_of_weights_to_number(num) if num.count(num[0]) != length else num[0]*length
 
 def xkcd_to_list_of_weights(xkcd : str) -> list[int]:
     '''
@@ -104,27 +105,12 @@ if __name__ == '__main__':
 
 Il mio file txt:
 ```html
-Per svolgere questo homework per comodità sono partito dalla terza funzione.
+Per svolgere questo homework, per comodità sono partito dalla terza funzione.
 Nella terza funzione chiamata "xkcd_to_list_of_weights" mi chiedeva di inserire una 
-stringa di numeri in una lista e per far questo ho utilizzato una variabile diciamo 
-temporanea, perché ad ogni ciclo del for conterrà temporaneamente il numero che dovrà 
-essere inserito nella lista. Nel ciclo ho utilizzato anche un if per controllare se il
-numero seguente a quello puntato sia uno 0 o meno. In caso fosse uno 0 non inserisco
-subito il numero contenuto nella variabile temporanea ma aspetto fino a che il numero 
-seguente a quello puntato non sia uno 0. Questo lo faccio per evitare che magari in una
-stringa tipo '10015100' non mi esca una lista di questo tipo = [1, 0, 0, 1, 5, 1, 0, 0],
-quando il risultato dovrebbe essere [100, 1, 5, 100].
+stringa di numeri in una lista, inizialmente controllo se nella stringa ci siano solo numeri e in caso ci fossero delle lettere le elimino, successivamente ho utilizzato una variabile "temporanea", perché ad ogni ciclo del for conterrà temporaneamente il numero che dovrà essere inserito nella lista. Nel ciclo ho utilizzato anche un if per controllare se il numero seguente a quello puntato sia uno 0 o meno. In caso fosse uno 0 non inserisco subito il numero contenuto nella variabile temporanea ma aspetto fino a che il numero seguente a quello puntato non sia uno 0. Questo lo faccio per evitare che magari in una stringa tipo '10015100' non mi esca una lista di questo tipo = [1, 0, 0, 1, 5, 1, 0, 0],quando il risultato dovrebbe essere [100, 1, 5, 100].
 Successivamente sono passato alla seconda funzione chiamata "decode_value", qui mi viene
-chiesto di convertire una stringa di numeri in un numero utilizzando "la legge" dei numeri 
-romani(cioè che se un numero è seguito da un numero maggiore in quel caso si sottraggono).
-Molto semplicemente ho richiamato la funzione precedentemente descritta per poter creare una 
-lista con la stringa data e successivamente ho utilizzato 2 contatori uno con la somma dei 
-numeri non avente di seguito un numero più grande e un altro contatore con la somma dei numeri 
-avente un numero più grande dopo e infine li ho sottratti.
-Nella funzione "list_of_weights_to_number" ho fatto la stessa cosa senza però richiamare 
-un'altra funzione.
-Infine nell'ultima funzione cioè "decode_XKCD_tuple" devo decodificare i numeri forniti e farne
-tornare i k maggiori. Per far questo ho fatto un for dove al suo interno richiamo ad ogni giro 
-la funzione "decode_value" e la inserivo in una lista e alla fine ho sistemato i numeri in 
-ordine decrescente e poi ho fatto tornare i primi k numeri maggiori.
+chiesto di convertire una stringa di numeri in un numero utilizzando "la legge" dei numeri romani(cioè che se un numero è seguito da un numero maggiore in quel caso si sottraggono).
+Molto semplicemente ho richiamato la funzione precedentemente descritta per poter creare una lista con la stringa data e successivamente controllo se nella stringa tutti i numeri sono uguali o meno e in caso non lo fossero richiamo la funzione list_of_weights_to_number.
+Nella funzione "list_of_weights_to_number" ho uno messo i valori in una lista dove controllo prima di farlo se il numero successivo sia maggiore o minore, in caso fosse maggiore lo trasformo in negativo e alla fine faccio la somma.
+Infine nell'ultima funzione cioè "decode_XKCD_tuple" devo decodificare i numeri forniti e farne tornare i k maggiori. Per far questo ho usato map, che restituisce un oggetto mappa (che è un iteratore) dei risultati dopo aver applicato la funzione data a ciascun elemento di un dato iterabile, dove al suo interno richiamo la funzione "decode_value" e alla fine ho sistemato i numeri in ordine decrescente e poi ho fatto tornare i primi k numeri maggiori.
 ```
